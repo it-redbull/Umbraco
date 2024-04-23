@@ -1,0 +1,83 @@
+﻿<div class="uFPayments-dashboard" ng-controller="uFPayments.dashboardController as vm">
+    <umb-box>
+        <umb-box-header title="{{vm.headline}}"></umb-box-header>
+        <umb-box-content>
+            <h4 style="color: red;" ng-show="!licenseIsValid">{{licenseStatus}}</h4>
+
+            <p ng-show="!licenseIsValid && unlicensedDomains.length > 0">Unlicensed domains:</p>
+            <p ng-hide="licenseIsValid" ng-repeat="unlicensedDomain in unlicensedDomains">{{ unlicensedDomain }}</p>
+            <br />
+            <label>License key</label>
+            <input type="text" ng-model="vm.licenseKey" no-dirty-check />
+            <umb-button type="button" action="setLicenseKey()" state="vm.licenseSaveButtonState" button-style="success"
+                        label="Save"></umb-button>
+        </umb-box-content>
+    </umb-box>
+    <umb-box>
+        <umb-box-header title="Stripe Settings"></umb-box-header>
+        <umb-box-content>
+            <umb-control-group label="API Key" alias="">
+                <input type="text" ng-model="vm.stripeApiKey" no-dirty-check />
+            </umb-control-group>
+
+            <umb-control-group label="Webhook endpoint secret" alias="">
+                <input type="text" ng-model="vm.stripeEndpointSecret" no-dirty-check />
+            </umb-control-group>
+
+            <umb-button type="button" action="setStripeSettings()" state="vm.stripeSaveButtonState" button-style="success"
+                        label="Save"></umb-button>
+        </umb-box-content>
+    </umb-box>
+    <umb-box>
+        <umb-box-header title="Mollie Settings"></umb-box-header>
+        <umb-box-content>
+            <label>API Key</label>
+            <input type="text" ng-model="vm.mollieApiKey" no-dirty-check />
+            <umb-button type="button" action="setMollieApiKey()" state="vm.mollieSaveButtonState" button-style="success"
+                        label="Save"></umb-button>
+        </umb-box-content>
+    </umb-box>
+    <umb-box>
+        <umb-box-header title="Adyen Settings"></umb-box-header>
+        <umb-box-content>
+
+            <umb-control-group label="Merchant account name"
+                               description="Name of your merchant account" alias="">
+                <input type="text" ng-model="vm.merchantAccount" no-dirty-check />
+            </umb-control-group>
+
+            <umb-control-group label="API Key" alias="">
+                <input type="text" ng-model="vm.adyenApiKey" no-dirty-check />
+            </umb-control-group>
+
+            <umb-control-group label="Client Key" alias="">
+                <input type="text" ng-model="vm.adyenClientKey" no-dirty-check />
+            </umb-control-group>
+
+            <umb-control-group label="Test environment" alias="" description="If you want to use the Adyen test environment set this to true">
+                <umb-toggle checked="vm.adyenTest"
+                            on-click="vm.toggle()">
+                </umb-toggle>
+            </umb-control-group>
+
+            <umb-control-group label="Region" alias="">
+                <umb-button type="button"
+                            label="{{vm.dropdownName}}"
+                            action="vm.toggleDropdown()">
+                </umb-button>
+
+                <umb-dropdown ng-if="vm.dropdownOpen" on-close="vm.close()" umb-keyboard-list>
+                    <umb-dropdown-item ng-repeat="item in vm.regions">
+                        <button type="button" class="btn-reset" ng-click="vm.select(item)">{{ item.name }}</button>
+                    </umb-dropdown-item>
+                </umb-dropdown>
+            </umb-control-group>
+
+            <umb-control-group label="Live endpoint prefix" alias="">
+                <input type="text" ng-model="vm.adyenEndpointPrefix" no-dirty-check />
+            </umb-control-group>
+
+            <umb-button type="button" action="setAdyenSettings()" state="vm.adyenSaveButtonState" button-style="success" label="Save" />
+        </umb-box-content>
+    </umb-box>
+</div>

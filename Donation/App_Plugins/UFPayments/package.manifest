@@ -1,0 +1,6 @@
+﻿{
+  "javascript": [
+	  "/App_Plugins/UFPayments/dashboard.controller.js",
+	  "/App_Plugins/UFPayments/settings.resource.js"
+  ]
+}
