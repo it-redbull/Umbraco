@@ -6,7 +6,9 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="UFPayments" Version="2.1.0" />
     <PackageReference Include="Umbraco.Cms" Version="13.3.0" />
+    <PackageReference Include="Umbraco.Forms" Version="13.1.2" />
   </ItemGroup>
 
   <ItemGroup>

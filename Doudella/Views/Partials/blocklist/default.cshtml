@@ -1,13 +1,22 @@
-@inherits Umbraco.Cms.Web.Common.Views.UmbracoViewPage<Umbraco.Cms.Core.Models.Blocks.BlockListModel>
+@inherits Umbraco.Cms.Web.Common.Views.UmbracoViewPage
+@using Umbraco.Cms.Core.Models.Blocks
 @{
-    if (Model?.Any() != true) { return; }
-}
-<div class="umb-block-list">
-    @foreach (var block in Model)
-    {
-        if (block?.ContentUdi == null) { continue; }
-        var data = block.Content;
+    var grid = Model.Value<BlockGridModel>("BlockGrid");
 
-        @await Html.PartialAsync("blocklist/Components/" + data.ContentType.Alias, block)
+    // get the number of columns defined for the grid
+    var gridColumns = grid.GridColumns;
+
+    // iterate the block items
+    foreach (var item in grid)
+    {
+        var content = item.Content;
+
+        @await Html.PartialAsync("blocklist/Components/" + content.ContentType.Alias, item);
     }
-</div>
+}
+
+
+
+
+
+

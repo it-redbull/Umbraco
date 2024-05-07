@@ -1,0 +1,27 @@
+@inherits Umbraco.Cms.Web.Common.Views.UmbracoViewPage<Umbraco.Cms.Core.Models.Blocks.BlockGridItem<ContentModels.CassesContent>>;
+@using ContentModels = Umbraco.Cms.Web.Common.PublishedModels;
+
+@* Render the Heading property from the Element Type selected as Content section *@
+@* <h1>@Model.Content.caseName</h1> *@
+
+
+
+
+	<div class="column large-third tab-full" data-aos="fade-up">
+		<div class="card">
+			<img style="width: 275px; height: 250px;" src="@Model.Content.CaseImage.Url()" alt="Card Image">
+			<div class="card-content">
+				<h3 class="card-title">@Model.Content.CaseName</h3>
+				<p style="width: 275px;" class="card-text">@Model.Content.CaseDescription</p>
+				<a href="@Model.Content.CaseUrl" class="btn btn--primary" title="Go to Card Page">Go to Card Page</a>
+			</div>
+		</div>
+	</div>
+
+
+
+
+
+
+@* Render the block areas *@
+@* @await Html.GetBlockGridItemAreasHtmlAsync(Model) *@

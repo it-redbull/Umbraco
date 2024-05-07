@@ -1,0 +1,98 @@
+@model Adyen.Model.Checkout.CreateCheckoutSessionResponse
+@{
+    TempData.Keep();
+    string urlBase = "https://checkoutshopper-";
+    string region = TempData["region"]?.ToString() ?? "";
+    string urlEnd = ".adyen.com/checkoutshopper/sdk/5.50.1/adyen";
+    
+    string fullUrlJs = urlBase + region + urlEnd + ".js";
+    string fullUrlCss = urlBase + region + urlEnd + ".css";
+
+    string jsHash = "sha384-JvkBT42YmJTlpFv3S+nJHfYL0aqlb38nKKi2idyGo8XzKkRTJFrQz0vwF0+m7+B+";
+    string cssHash = "sha384-k6qYnmoHaucEm97eQQAs3MK5e44JQ2sksrue2tfdDOnnedKzc0VYQwxzdYWZu8Mj";
+}
+
+<script src="@fullUrlJs" integrity="@jsHash" crossorigin="anonymous"></script>
+
+<!-- Embed the Adyen Web stylesheet. You can add your own styling by overriding the rules in the CSS file -->
+<link rel="stylesheet" href="@fullUrlCss" integrity="@cssHash" crossorigin="anonymous">
+
+<style>
+    @@media screen and (min-width: 1200px) {
+        .ufpayments-adyen-container {
+            width: 50%;
+            padding-top: 5%;
+            padding-left: 25%;
+        }
+    }
+</style>
+
+<div id="dropin-container" class="ufpayments-adyen-container"></div>
+
+<script>
+    (async function () {
+        // your page initialization code here
+        // the DOM will be available here
+        const configuration = {
+            environment: '@TempData["environment"]', // Change to 'live' for the live environment.
+            clientKey: '@TempData["clientKey"]', // Public key used for client-side authentication: https://docs.adyen.com/development-resources/client-side-authentication
+            analytics: {
+                enabled: true // Set to false to not send analytics data to Adyen.
+            },
+            session: {
+                id: '@Html.Raw(Model?.Id)', // Unique identifier for the payment session.
+                sessionData: '@Html.Raw(Model?.SessionData)' // The payment session data.
+            },
+            onPaymentCompleted: (result, component) => {
+                console.info(result, component);
+
+                var resultCode = result.resultCode;
+
+                if (resultCode == "Authorised" || resultCode == "Received" || resultCode == "Pending") {
+                    // Redirect user to "Thank you page";
+                    window.location.href = '@Html.TempData["redirectToUrl"]';
+                }
+                else if (resultCode == "Cancelled") {
+                    // Redirect user to "Error page";
+                    window.location.href = '@Html.TempData["redirectToErrorUrl"]';
+                }
+                else if (resultCode == "Error") {
+                    // Redirect user to "Error page";
+                    window.location.href = '@Html.TempData["redirectToErrorUrl"]';
+                }
+                else if (resultCode == "Refused") {
+                    // Redirect user to "Error page";
+                    window.location.href = '@Html.TempData["redirectToErrorUrl"]';
+                }
+            },
+            onError: (error, component) => {
+                console.error(error.name, error.message, error.stack, component);
+            },
+            onReady: () => {
+                console.log("READY");
+            }
+        };
+
+        var redirectResult = null;
+
+        if (configuration.session.id == null || configuration.session.id == "") {
+            //read query string
+            const urlParams = new URLSearchParams(window.location.search);
+            const sessionId = urlParams.get('sessionId');
+            redirectResult = urlParams.get('redirectResult');
+            configuration.session.id = sessionId;
+        }
+
+        // Create an instance of AdyenCheckout using the configuration object.
+        const checkout = await AdyenCheckout(configuration);
+
+        if (redirectResult != null) {
+            checkout.submitDetails({ details: { redirectResult: redirectResult } });
+        }
+        else {
+            // Create an instance of Drop-in and mount it to the container you created.
+            const dropinComponent = checkout.create('dropin').mount('#dropin-container');
+        }
+
+    })();
+</script>

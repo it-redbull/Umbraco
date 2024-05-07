@@ -1,0 +1,143 @@
+@model Umbraco.Forms.Web.Models.FieldViewModel
+
+@{
+    Model.AdditionalSettings.TryGetValue("customAmountPlaceholder", out string placeholder);
+    Model.AdditionalSettings.TryGetValue("customAmountButtonText", out string buttonText);
+    Model.AdditionalSettings.TryGetValue("buttonColor", out string buttonColor);
+    Model.AdditionalSettings.TryGetValue("buttonHoverColor", out string buttonHoverColor);
+    Model.AdditionalSettings.TryGetValue("buttonSelectedColor", out string buttonSelectedColor);
+    bool hasPrevalues = Model.PreValues != null && Model.PreValues.Any();
+}
+
+<style>
+    .donation-amount-container {
+        border-radius: 8px;
+    }
+
+    .amount-list {
+        margin: 0;
+        list-style: none;
+        padding: 0;
+    }
+
+    .amount-list li {
+        display: inline-block;
+    }
+
+    .amount-button {
+        padding: 10px 20px;
+        background-color: @(!string.IsNullOrEmpty(buttonColor) ? buttonColor : "#007BFF");
+        color: #fff;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        margin-bottom: 10px;
+    }
+
+    .amount-button:hover {
+        background-color: @(!string.IsNullOrEmpty(buttonColor) ? buttonColor : "#5bc0de");
+    }
+
+    /* Custom amount */
+    #custom-amount {
+        @if (hasPrevalues)
+        { 
+            @("display: none;")
+        }
+        else{
+            @("display: flex;")
+        }
+        justify-content: left;
+    }
+
+    #custom-amount input {
+        padding: 5px;
+    }
+
+    #custom-amount button {
+        @if (!hasPrevalues)
+        {
+            @("display: none;")
+        }
+        background-color: #007BFF;
+        color: #fff;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+    }
+
+    #custom-amount button:hover {
+        background-color: #0056b3;
+    }
+</style>
+
+<div class="donation-amount-container">
+    @if (hasPrevalues)
+    {
+        <ul class="amount-list">
+            @foreach (var amount in Model.PreValues)
+            {
+                <li><button class="amount-button" type="button" onclick="selectAmount(@amount.Value, this)"> @(amount.Caption) </button></li>
+            }
+        </ul>
+        <button id="custom-amount-button" class="amount-button" type="button" onclick="showCustomAmount(this)">
+            @if (!string.IsNullOrEmpty(buttonText))
+            {
+                @buttonText
+            }
+            else
+            {
+               @("Custom amount");
+            }
+            
+            </button>
+    }
+
+
+    <div id="custom-amount">
+        <input type="number" name="@Model.Name" id="@Model.Id" data-umb="@Model.Id" class="text number" value=""
+            @if (!string.IsNullOrEmpty(placeholder))
+            {
+                <text> placeholder="@placeholder" </text>
+            }
+            @if (Model.Mandatory)
+            {
+                <text> data-val="true" </text>
+                <text> data-val-required="@Model.RequiredErrorMessage" aria-required="true" </text>
+            }
+        />
+    </div>
+</div>
+
+<script>
+    function showCustomAmount(button) {
+        // Clear the custom amount input field
+        document.getElementById("@Model.Id").value = "";
+
+        var customAmountSection = document.getElementById('custom-amount');
+        customAmountSection.style.display = 'flex';
+        
+        resetButtonColors();
+
+        button.style.backgroundColor = "@(!string.IsNullOrEmpty(buttonColor) ? buttonColor : "#5bc0de")";
+    }
+
+    function selectAmount(amount, button) {
+        // Fill the custom amount input with the selected amount
+        document.getElementById("@Model.Id").value = amount;
+        var customAmountSection = document.getElementById('custom-amount');
+        customAmountSection.style.display = 'none';
+
+        resetButtonColors();
+
+        // Change the color of the selected button
+        button.style.backgroundColor = "@(!string.IsNullOrEmpty(buttonColor) ? buttonColor : "#5bc0de")";
+    }
+
+    function resetButtonColors() {
+        var amountButtons = document.querySelectorAll('.amount-button');
+        amountButtons.forEach(function (btn) {
+            btn.style.backgroundColor = "@buttonColor"; // Reset to the default color
+        });
+    }
+</script>

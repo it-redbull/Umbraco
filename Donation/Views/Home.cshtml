@@ -1,5 +1,5 @@
 ﻿@using Umbraco.Cms.Web.Common.PublishedModels;
-@inherits Umbraco.Cms.Web.Common.Views.UmbracoViewPage<ContentModels.Home>
+@inherits Umbraco.Cms.Web.Common.Views.UmbracoViewPage<Home>
 @using Umbraco.Forms.Web
 @using ContentModels = Umbraco.Cms.Web.Common.PublishedModels;
 @{
@@ -612,6 +612,10 @@
             </div> *@
         </div>
     </div>
+
+    <h1>Halel G</h1>
+    @await Html.GetBlockGridHtmlAsync(Model, "BlockGrid")
+
 
     <!-- footer_start  -->
     <footer class="footer">

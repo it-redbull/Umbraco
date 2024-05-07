@@ -1,0 +1,186 @@
+﻿@using Umbraco.Cms.Web.Common.PublishedModels;
+@inherits Umbraco.Cms.Web.Common.Views.UmbracoViewPage
+@{
+	Layout = null;
+}
+
+
+
+<!DOCTYPE html>
+<html class="no-js" lang="en">
+<head>
+
+    <!--- basic page needs
+    ================================================== -->
+    <meta charset="utf-8">
+    <title>DouDella</title>
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <!-- mobile specific metas
+    ================================================== -->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- CSS
+    ================================================== -->
+    <link rel="stylesheet" href="/css/base.css">
+    <link rel="stylesheet" href="/css/vendor.css">
+    <link rel="stylesheet" href="/css/main.css">
+
+    <!-- script
+    ================================================== -->
+    <script src="/js/modernizr.js"></script>
+    <script src="/js/pace.min.js"></script>
+
+    <!-- favicons
+    ================================================== -->
+    <link rel="icon" href="/logo-test.png">
+
+
+
+</head>
+
+
+<header class="s-header">
+
+        <div class="header-logo">
+            <a class="site-logo" href="index.php">
+                <img src="css/logo2.jpg" alt="Homepage">
+            </a>
+        </div>
+
+        <nav class="header-nav-wrap">
+            <ul class="header-main-nav langWrap">
+                <li><a href="/" title="about">Home</a></li>
+                <li><a class="smoothscroll" href="#about" title="about">Over mij</a></li>
+                <li><a href="/doudella-casses/" title="about">Ubraco Cases</a></li>
+                <li><a class="smoothscroll" href="#contact" title="contact us">Contact</a></li>	
+                <!-- <li><a href="websites.php" title="about">Website's</a></li> -->
+
+                <!-- languages --->
+                <!-- <li><a href="#" language='english' class="active">EN</a></li>
+                <li><a href="#" language='french' class="active">FR</a></li> -->
+
+                
+                
+                
+                <!-- dropdown fix 
+
+
+                <div class="dropdown">
+                <button class="dropbtn">Talen
+                    <i class="fa fa-caret-down"></i>
+                </button>
+                <div class="dropdown-content">
+                    <a href="#">Link 1</a>
+                    <a href="#">Link 2</a>
+                    <a href="#">Link 3</a>
+                </div>
+                </div>
+
+
+                 end drop-->
+
+              
+
+
+                <!--<li><a class="smoothscroll" href="#works" title="works">Works</a></li> -->
+
+            </ul>
+            
+            
+            <ul class="header-social">
+                <li><a href="https://github.com/motrecht"><i class="fab fa-github" aria-hidden="true"></i></a></li>
+                <li><a href="https://twitter.com/DoudellaMohamed"><i class="fab fa-twitter" aria-hidden="true"></i></a></li>
+                <li><a href="https://www.linkedin.com/in/mohamed-doudella-11a2bb230/"><i class="fab fa-linkedin" aria-hidden="true"></i></a></li>
+            </ul>
+        </nav>
+        
+        
+        <a class="header-menu-toggle" href="#"><span>Menu</span></a>
+        
+    </header>
+
+<body id="top">
+
+    <div id="preloader">
+        <div id="loader"></div>
+    </div>
+
+
+
+
+@* ----- body *@
+
+@RenderBody()
+
+@* ----- end body *@
+
+
+
+
+
+
+<!-- footer
+    ================================================== -->
+
+    
+    <!-- contact
+    ================================================== -->
+    <section id="contact" class="s-contact ss-dark target-section">
+
+        <div class="row heading-block" data-aos="fade-up">
+            <div class="column large-full">
+                <h2 class="section-heading">Get In Touch</h2>
+            </div>
+        </div>
+
+
+        <div class="row contact-infos" data-aos="fade-up" data-aos-anchor=".contact-main">
+
+            <div class="column large-5 medium-full contact-phone">
+                <h4>Stuur een mail</h4>
+                <!--werkt niet mail -->
+                <a href="info@doudella.com">info@doudella.com</a>
+            </div>
+
+            <div class="column large-7 medium-full contact-social">
+                <h4>Social</h4>
+                <ul>
+                    <li><a href="https://github.com/motrecht" title="Github">Github</a></li>
+                    <li><a href="https://twitter.com/DoudellaMohamed" title="Twitter">Twitter</a></li>
+                    <li><a href="https://www.linkedin.com/in/mohamed-doudella-11a2bb230/" title="linkedin">Linkedin</a></li>
+                </ul>
+            </div>
+
+        </div> <!-- end contact-infos -->
+
+    </section> <!-- end s-contact -->
+
+    
+    <footer>
+        <div class="row">
+            <div class="column large-full ss-copyright">
+                <span>© Copyright Doudella 2023</span> 
+                <span>Updated by Doudella</span>
+            </div>            
+
+            <div class="ss-go-top">
+                <a class="smoothscroll" title="Back to Top" href="#top"></a>
+            </div>
+        </div>
+    </footer>
+
+    
+    <!-- Java Script
+    ================================================== -->
+    <script src="/js/jquery-3.2.1.min.js"></script>
+    <script src="/js/plugins.js"></script>
+    <script src="/js/main.js"></script>
+ <!-- translate java script
+    ================================================== -->
+    
+    <!-- <script src="js/script.js"></script> -->
+
+
+</body>

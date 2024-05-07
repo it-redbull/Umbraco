@@ -1,0 +1,83 @@
+﻿@using Umbraco.Cms.Web.Common.PublishedModels;
+@inherits Umbraco.Cms.Web.Common.Views.UmbracoViewPage<DoudellaCasses>
+@using ContentModels = Umbraco.Cms.Web.Common.PublishedModels;
+@{
+	Layout = "Master.cshtml";
+}
+
+
+<section id="intro" class="s-intro target-section">
+        <div class="row intro-content content">
+            <div class="column large-9 mob-full intro-text">
+                <h3 class="title">.NET projects Umbraco</h3>
+                <p style="color: white;" class="intro">
+                    Hier vindt u een overzicht van de projecten die ik heb gedaan.  <br>
+
+                    Here you will find an overview of the projects I have done. <br>
+                </p>
+              
+            </div>
+
+
+            <div class="intro-scroll">
+                <a href="#about" class="intro-scroll-link smoothscroll">
+                    Look at my work
+                </a>
+            </div>
+
+
+            </div>
+
+            
+        </div> <!-- end row -->
+
+    </section> <!-- end intro -->
+
+
+
+
+
+	<section id="about" class="s-about target-section">
+
+        <div class="about-me">
+
+            <div class="row heading-block" data-aos="fade-up">
+                <div class="column large-full">
+                    <h2 class="section-heading abtitle">Cases</h2>
+                </div>
+            </div>
+
+            <div class="row about-me__content" data-aos="fade-up">
+                <div class="column large-full about-me__text">
+                    <p class="lead leadtext">
+					Hier vindt u een overzicht van de projecten die ik heb gedaan.
+                    </p>
+
+                    <p class="lead leadtext">
+					Here you will find an overview of the projects I have done.
+                    </p>
+                </div>
+            </div>
+
+			<div class="row about-me__card">
+                @* blockgrid Cases project *@
+                    @await Html.GetBlockGridHtmlAsync(Model.BlockGrid)
+                @* end blockgrid Cases project *@
+
+                @* <div class="column large-third tab-full" data-aos="fade-up">
+					 <div class="card">
+						<img src="path_to_image" alt="Card Image">
+						<div class="card-content">
+							<h3 class="card-title">Card Title</h3>
+							<p class="card-text">Short description of the card.</p>
+							<a href="card_page_url" class="btn btn--primary" title="Go to Card Page">Go to Card Page</a>
+						</div>
+					</div> 
+				</div>  *@
+			</div>
+
+
+
+
+        </div> <!-- end about-me -->
+</section> <!-- end about -->
