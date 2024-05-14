@@ -60,12 +60,17 @@
             </div>
 
 			<div class="row about-me__card">
+                <div class="column large-third tab-full" data-aos="fade-up">
                 @* blockgrid Cases project *@
                     @await Html.GetBlockGridHtmlAsync(Model.BlockGrid)
                 @* end blockgrid Cases project *@
+            </div>
+
+
+
 
                 @* <div class="column large-third tab-full" data-aos="fade-up">
-					 <div class="card">
+					 <div style="width: 275px; height: 250px;" class="card">
 						<img src="path_to_image" alt="Card Image">
 						<div class="card-content">
 							<h3 class="card-title">Card Title</h3>
@@ -73,8 +78,8 @@
 							<a href="card_page_url" class="btn btn--primary" title="Go to Card Page">Go to Card Page</a>
 						</div>
 					</div> 
-				</div>  *@
-			</div>
+				</div>  
+			</div> *@
 
 
 
